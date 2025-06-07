@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uni-Card Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="w-1/4 bg-pink-50 p-7">
+            <h1 class="text-2xl font-bold text-purple-600 mb-8">Uni-Card</h1>
+            <ul>
+                <li class="mb-4"><a href="#" class="text-lg text-blue-700">Profile</a></li>
+                <li class="mb-4"><a href="#" class="text-lg text-gray-700">Attendance</a></li>
+                <li class="mb-4"><a href="#" class="text-lg text-gray-700">Card Center</a></li>
+                <li class="mb-4"><a href="#" class="text-lg text-gray-700">Announcement</a></li>
+                <li class="mb-4"><a href="#" class="text-lg text-gray-700">Transactions</a></li>
+                <li class="mb-4"><a href="#" class="text-lg text-gray-700">Report</a></li>
+                <li class="mb-4"><a href="#" class="text-lg text-gray-700">Setting</a></li>
+            </ul>
+        </div>
+        <!-- Main Content -->
+        <div class="w-3/4 p-6">
+            <div class="grid grid-cols-2 gap-6">
+                <!-- Enrollment Number -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-4">Enrollment Number</h2>
+                    <div class="bg-blue-500 text-white p-4 rounded-lg flex justify-between items-center">
+                        <span id="enrollment-number" class="text-3xl font-bold"></span>
+                        <span id="valid-thru" class="text-sm"></span>
+                    </div>
+                    <button class="mt-4 bg-gray-200 text-gray-700 py-2 px-4 rounded">Add Debit Card</button>
+                </div>
+                <!-- Total Balance -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-4">Your Total Balance</h2>
+                    <div id="total-balance" class="text-3xl font-bold mb-2"></div>
+                    <div id="balance-date" class="text-sm text-gray-500 mb-4"></div>
+                    <div class="flex space-x-2">
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded">Send</button>
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded">Topup</button>
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded">More</button>
+                    </div>
+                </div>
+                <!-- Recent Transactions -->
+                <div class="bg-white p-6 rounded-lg shadow col-span-2">
+                    <h2 class="text-lg font-semibold mb-4">Recent Transactions</h2>
+                    <ul id="transactions-list">
+                        <!-- Transactions will be populated here -->
+                    </ul>
+                </div>
+                <!-- Attendance Percentage -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-4">Attendance Percentage</h2>
+                    <div id="attendance-percentage" class="text-3xl font-bold mb-2"></div>
+                    <div class="text-sm text-gray-500">Normal Level</div>
+                </div>
+                <!-- Attendance -->
+                <div class="bg-white p-6 rounded-lg shadow col-span-2">
+                    <h2 class="text-lg font-semibold mb-4">Attendance</h2>
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr>
+                                <th class="py-2">Date & Time</th>
+                                <th class="py-2">Subject Code</th>
+                                <th class="py-2">Faculty Name</th>
+                                <th class="py-2">Status</th>
+                                <th class="py-2">Cumulative Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-list">
+                            <!-- Attendance records will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('enrollment-number').innerText = '2212501070XX';
+        document.getElementById('valid-thru').innerText = 'Valid Through 02/25 to 02/29';
+        document.getElementById('total-balance').innerText = 'Rs. 80,201.50';
+        document.getElementById('balance-date').innerText = 'December 21, 2025';
+        document.getElementById('attendance-percentage').innerText = '85.5%';
+
+        const transactions = [
+            { description: 'Paypal', amount: 'Rs. 8,200.00' },
+            { description: 'Stationary', amount: 'Rs. 19.00' },
+            { description: 'Canteen ', amount: 'Rs. 120.00' },
+            { description: 'Stationary', amount: 'Rs. 22.00' }
+        ];
+
+        const transactionsList = document.getElementById('transactions-list');
+        transactions.forEach(transaction => {
+            const li = document.createElement('li');
+            li.className = 'flex justify-between mb-2';
+            li.innerHTML = `<span>${transaction.description}</span><span>${transaction.amount}</span>`;
+            transactionsList.appendChild(li);
+        });
+
+        const attendanceRecords = [
+            { dateTime: '31 Oct 2020 01:45pm', subjectCode: '#3150711', facultyName: 'Sharma Vinayak', status: 'Present', cumulativeStatus: '75 P' }
+        ];
+
+        const attendanceList = document.getElementById('attendance-list');
+        attendanceRecords.forEach(record => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="py-2">${record.dateTime}</td>
+                <td class="py-2">${record.subjectCode}</td>
+                <td class="py-2">${record.facultyName}</td>
+                <td class="py-2">${record.status}</td>
+                <td class="py-2">${record.cumulativeStatus}</td>
+            `;
+            attendanceList.appendChild(tr);
+        });
+    </script>
+</body>
+</html>
